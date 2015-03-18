@@ -1,0 +1,9 @@
+source "https://rubygems.org"
+
+gem 'open_uri_redirections'
+gem 'nokogiri'
+
+gem 'rspec'
+gem 'rspec-its'
+gem 'webmock'
+gem 'vcr'
