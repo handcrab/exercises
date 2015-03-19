@@ -3,6 +3,8 @@ source "https://rubygems.org"
 gem 'open_uri_redirections'
 gem 'nokogiri'
 
+gem 'selenium-webdriver' # required for images_fetcher_sel
+
 gem 'rspec'
 gem 'rspec-its'
 gem 'webmock'
