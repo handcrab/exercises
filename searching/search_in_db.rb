@@ -13,6 +13,8 @@ class TmpDb
       Integer     :height
       Integer     :index
       Float       :balance
+      # index :height
+      # index [:sex, :age, :height, :index, :balance]
     end
 
     arr_to_db persons_arr

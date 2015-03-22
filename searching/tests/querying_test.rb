@@ -20,6 +20,16 @@ describe 'DB select' do
   end
 end
 
+describe 'Redis select' do
+  it 'selects correct data' do
+    PersonInRedis.with $persons do |rds|
+      $queries.each do |q|
+        rds.search(q[:query]).size.must_equal q[:result]
+      end
+    end
+  end
+end
+
 describe 'Hash select' do
   it 'selects correct data' do
     m = HashMap.new $persons

@@ -1,10 +1,23 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    hiredis (0.6.0)
+    msgpack (0.5.11)
+    nido (0.0.1)
+    ohm (2.2.0)
+      msgpack
+      nido
+      redic
+      stal
+    redic (1.4.1)
+      hiredis
     sequel (4.20.0)
+    stal (0.1.0)
+      redic
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  ohm
   sequel

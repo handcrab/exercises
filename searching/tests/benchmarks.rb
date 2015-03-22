@@ -85,6 +85,16 @@ Benchmark.bm do |x|
     end
   end
 
+  # x.report("redis: ") do
+  #   PersonInRedis.load $persons
+  #   10.times do
+  #     $queries.each do |q|
+  #       PersonInRedis.search q[:query]
+  #     end
+  #   end
+  #   PersonInRedis.cleanup
+  # end
+
   x.report("map:   ") do
     m = HashMap.new $persons
     10.times do

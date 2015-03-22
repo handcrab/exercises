@@ -5,6 +5,12 @@ class Person
   MAX_INDEX  = 1_000_000
   MAX_ACC    = 1_000_000.0 # balance
 
+  DEFAULT_SEX    = [*0..MAX_SEX]
+  DEFAULT_AGE    = [*0..100]
+  DEFAULT_HEIGHT = [*0..300]
+  DEFAULT_INDEX  = [1, MAX_INDEX]
+  DEFAULT_ACC    = [0, MAX_ACC]
+
   attr_accessor :sex, :age, :height, :index, :balance
 
   def initialize params = {}

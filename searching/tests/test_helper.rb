@@ -4,6 +4,7 @@ require '../person'
 require '../search_select'
 require '../search_in_db'
 require '../search_hash_map'
+require '../search_redis'
 
 # load data
 $db = Sequel.sqlite './persons.db'
