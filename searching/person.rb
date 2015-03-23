@@ -1,4 +1,6 @@
 class Person
+  ATTRS = %i(sex age height index balance)
+
   MAX_SEX    = 1
   MAX_AGE    = 100
   MAX_HEIGHT = 300
@@ -6,49 +8,39 @@ class Person
   MAX_ACC    = 1_000_000.0 # balance
 
   DEFAULT_SEX    = [*0..MAX_SEX]
-  DEFAULT_AGE    = [*0..100]
-  DEFAULT_HEIGHT = [*0..300]
+  DEFAULT_AGE    = [*0..MAX_AGE]
+  DEFAULT_HEIGHT = [*0..MAX_HEIGHT]
   DEFAULT_INDEX  = [1, MAX_INDEX]
   DEFAULT_ACC    = [0, MAX_ACC]
 
-  attr_accessor :sex, :age, :height, :index, :balance
+  attr_accessor *ATTRS
 
   def initialize params = {}
-    @sex     = params[:sex]
-    @age     = params[:age]
-    @height  = params[:height]
-    @index   = params[:index]
-    @balance = params[:balance]
+    ATTRS.each { |atr| instance_variable_set :"@#{atr}", params[atr] }
   end
 
   # => [] of Person objects
   def self.seed n = 1_000
-    seed_arr = []
-    n.times do
-      person = new sex: seed_sex,
-                   age: seed_age,
-                   height: seed_height,
-                   index: seed_index,
-                   balance: seed_balance
-      seed_arr << person
+    (1..n).inject([]) { |seeds, _| seeds << new(seed_attrs) }
+  end
+
+  # => {}
+  def self.seed_attrs
+    ATTRS.inject({}) do |res, atr|
+      res.merge! atr => send(:"seed_#{atr}")
     end
-    seed_arr
   end
-
-  def attrs
-    { sex: @sex, age: @age, height: @height, index: @index, balance: @balance }
-  end
-
-  alias_method :values, :attrs
-  alias_method :to_hash, :attrs
 
   def to_h
     hash = {}
     instance_variables.each do |var|
-      hash[var.to_s.delete('@').to_sym] = instance_variable_get(var)
+      hash[var.to_s.delete('@').to_sym] = instance_variable_get var
     end
     hash
   end
+
+  alias_method :attrs, :to_h
+  alias_method :to_hash, :attrs
 
   def self.random max
     rand max + 1
