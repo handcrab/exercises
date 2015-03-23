@@ -12,6 +12,8 @@ require_relative './helpers'
 class HashMap
   attr_accessor :map
 
+  include PersonQuery
+
   # TODO: build map of given structure
   # structure = [:sex, :age, :height]
   def initialize objects
@@ -27,12 +29,7 @@ class HashMap
     objs = locate_objects query
 
     return objs if skip_balance_filter && skip_index_filter
-    objs = objs.select do |o|
-      o.index.between?(*query[:index]) &&
-      o.balance.between?(*query[:balance])
-    end
-
-    objs
+    objs.select { |o| obj_index_and_balance_between? o, query }
   end
 
   private
@@ -60,10 +57,8 @@ class HashMap
   end
 
   def objects_by_ids ids
-    res = []
-    ids.each { |i| res << @objects[i] }
-    res
     # @objects.values_at(*ids) # <== SystemStackError: stack level too deep
+    ids.inject([]) { |res, i| res << @objects[i] }
   end
 
   def build_map_of objs

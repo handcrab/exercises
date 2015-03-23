@@ -8,7 +8,7 @@ class TmpDb
 
     @db.create_table :people do
       primary_key :id
-      Integer     :sex # TrueClass
+      Integer     :sex
       Integer     :age
       Integer     :height
       Integer     :index
@@ -32,20 +32,6 @@ class TmpDb
   def arr_to_db arr
     people.multi_insert arr.map(&:attrs)
   end
-
-  # doesnt work in parallel!?
-  # def arr_to_db_mt arr, num_threads = 4
-  #   threads = []
-  #   arr = arr.each_slice(arr.size/num_threads).to_a
-
-  #   arr.each_with_index do |slice, i|
-  #     threads << Thread.new(slice, i) do |slice, i|
-  #       DB[:people].multi_insert slice.map(&:attrs)
-  #     end
-  #   end
-
-  #   threads.each { |thr| thr.join }
-  # end
 
   # require 'parallel'
   # def arr_to_db_pll arr

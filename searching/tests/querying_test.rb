@@ -22,7 +22,7 @@ end
 
 describe 'Redis select' do
   it 'selects correct data' do
-    PersonInRedis.with $persons do |rds|
+    PersonInRedis.with($persons) do |rds|
       $queries.each do |q|
         rds.search(q[:query]).size.must_equal q[:result]
       end
